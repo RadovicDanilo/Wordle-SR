@@ -1,2 +1,2 @@
 # Wordle-SR
-Wordle na srpskom
+Wordle na srpskom za android
