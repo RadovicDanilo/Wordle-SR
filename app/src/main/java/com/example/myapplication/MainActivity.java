@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity
     public String[] rec6 = {"","","","",""};
     public String[] RESENJE = {"К","Њ","И","Г","А"};
 
-    public boolean PROVERA(String Recstr){
+    public boolean PROVERA(String Recstr){//proverava da li se rec nalazi u recniku
         boolean flag= false;
         String filename = "LISTARECI.txt";
         BufferedReader bufferedReader = null;
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity
     public Button Restart;
     public TextView Resenje;
 
-    public void KRAJ(){
+    public void KRAJ(){//na kraju igre prikazuje tacno resenje
 
         dialogBuilder = new AlertDialog.Builder(this);
         final View contactPopupView= getLayoutInflater().inflate(R.layout.popup,null);
@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity
     }
     public AlertDialog.Builder dialogBuilder1;
     public  AlertDialog dialog1;
-    public void help(){
+    public void help(){//prikazuje ekran sa upstvima za igranje igre
 
         dialogBuilder1 = new AlertDialog.Builder(this);
         final View contactPopupView1= getLayoutInflater().inflate(R.layout.help,null);
@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    public void RNDrec(){
+    public void RNDrec(){//bira nasumicnu reci iz recnika koju igrac mora da pogodi
         int BrReciURecniku = new Random().nextInt(18296) + 1;
         int brojilac = 1;
         String filename2 = "LISTARECI.txt";
@@ -223,7 +223,7 @@ public class MainActivity extends AppCompatActivity
         }
 
     }
-    public void TEKST() {
+    public void TEKST() {//refresh-uje UI
         TextView textView1 = (TextView) findViewById(R.id.textView31);
         textView1.setText(rec1[0]);
         TextView textView2 = (TextView) findViewById(R.id.textView32);
@@ -313,7 +313,7 @@ public class MainActivity extends AppCompatActivity
     public static int ZELENO=Color.parseColor("#00FF00");
     public static int ZUTO=Color.parseColor("#B58B00");
     public static int CRVENO =Color.parseColor("#953553");
-    public void PROMENAboje(int f,int BOJA) {
+    public void PROMENAboje(int f,int BOJA) {//daje boju poljima na osnovu ukacenog slova
         if (brojReci == 1) {
             if (f == 0) {
                 TextView textView1 = (TextView) findViewById(R.id.textView31);
