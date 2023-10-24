@@ -1,10 +1,5 @@
 package com.example.myapplication;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
@@ -15,340 +10,305 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 
 @RequiresApi(api = Build.VERSION_CODES.O)
-public class MainActivity extends AppCompatActivity
+public class MainActivity1 extends AppCompatActivity
 {
-    final String dictionaryPath = "dictionary.txt";
+    int brojReci=1;
+    int brojSlova=0;
     String[] azbuka = { "Љ","Њ","Е","Р","Т","З","У","И","О","П","А","С","Д","Ф","Г","Х","Ј","К","Л","Ч","Џ","Ц","В", "Б", "Н", "М", "Ћ", "Ђ", "Ш", "Ж"};
-    String[][] words = new String[6][5];
-    String solution;
-    int currentWord = 0;
-    int currentLetter = 0;
-    List<TextView> wordsTextView = new ArrayList<>();
-    List<TextView> wordsTextViewEnd = new ArrayList<>();
-    List<Button> keyboard = new ArrayList<>();
+    String[] rec1 = {"","","","",""};
+    String[] rec2 = {"","","","",""};
+    String[] rec3 = {"","","","",""};
+    String[] rec4 = {"","","","",""};
+    String[] rec5 = {"","","","",""};
+    String[] rec6 = {"","","","",""};
+    String[] Resenje = {"","","","",""};
 
-    public boolean isInDictionary(String word){
+    public boolean PROVERA(String Recstr){
+        boolean flag= false;
         String filename = "dictionary.txt";
         BufferedReader bufferedReader = null;
         try {
-            bufferedReader = new BufferedReader(new InputStreamReader(this.getAssets().open(filename), StandardCharsets.UTF_8));
+            bufferedReader = new BufferedReader(new InputStreamReader
+                    (this.getAssets().open(filename), StandardCharsets.UTF_8));
             String line;
             while ((line = bufferedReader.readLine()) != null) {
-                if (line.contains(word))
-                    return true;
+                if (line.contains(Recstr))
+                {
+                    flag = true;
+                    break;
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return false;
+        return flag;
     }
+
     AlertDialog.Builder dialogBuilder;
     AlertDialog alertDialog;
     Button btRestart;
     TextView tvResenje;
 
-    @SuppressLint("SetTextI18n")
-    public void end(){
+    public void KRAJ(){//na kraju igre prikazuje tacno resenje
 
         dialogBuilder = new AlertDialog.Builder(this);
         final View contactPopupView= getLayoutInflater().inflate(R.layout.popup,null);
+
+        btRestart = (Button) contactPopupView.findViewById(R.id.Restart);
+        tvResenje = (TextView) contactPopupView.findViewById(R.id.Resenje);
         dialogBuilder.setView(contactPopupView);
         alertDialog = dialogBuilder.create();
         alertDialog.show();
 
-        tvResenje = contactPopupView.findViewById(R.id.Resenje);
-        tvResenje.setText("Тачна реч је: "+ solution);
+        tvResenje.setText("Тачна реч је: "+ Resenje[0]+ Resenje[1]+ Resenje[2]+ Resenje[3]+ Resenje[4]);
 
         TextView textView1 = (TextView) contactPopupView.findViewById(R.id.textView31);
+        textView1.setText(rec1[0]);
+        textView1.setBackground(((TextView) findViewById(R.id.textView31)).getBackground());
         TextView textView2 = (TextView) contactPopupView.findViewById(R.id.textView32);
+        textView2.setText(rec1[1]);
         TextView textView3 = (TextView) contactPopupView.findViewById(R.id.textView33);
+        textView3.setText(rec1[2]);
         TextView textView4 = (TextView) contactPopupView.findViewById(R.id.textView34);
+        textView4.setText(rec1[3]);
         TextView textView5 = (TextView) contactPopupView.findViewById(R.id.textView35);
+        textView5.setText(rec1[4]);
         TextView textView6 = (TextView) contactPopupView.findViewById(R.id.textView36);
+        textView6.setText(rec2[0]);
         TextView textView7 = (TextView) contactPopupView.findViewById(R.id.textView37);
+        textView7.setText(rec2[1]);
         TextView textView8 = (TextView) contactPopupView.findViewById(R.id.textView38);
+        textView8.setText(rec2[2]);
         TextView textView9 = (TextView) contactPopupView.findViewById(R.id.textView39);
+        textView9.setText(rec2[3]);
         TextView textView10 = (TextView) contactPopupView.findViewById(R.id.textView40);
+        textView10.setText(rec2[4]);
         TextView textView11 = (TextView) contactPopupView.findViewById(R.id.textView41);
+        textView11.setText(rec3[0]);
         TextView textView12 = (TextView) contactPopupView.findViewById(R.id.textView42);
+        textView12.setText(rec3[1]);
         TextView textView13 = (TextView) contactPopupView.findViewById(R.id.textView43);
+        textView13.setText(rec3[2]);
         TextView textView14 = (TextView) contactPopupView.findViewById(R.id.textView44);
+        textView14.setText(rec3[3]);
         TextView textView15 = (TextView) contactPopupView.findViewById(R.id.textView45);
+        textView15.setText(rec3[4]);
         TextView textView16 = (TextView) contactPopupView.findViewById(R.id.textView46);
+        textView16.setText(rec4[0]);
         TextView textView17 = (TextView) contactPopupView.findViewById(R.id.textView47);
+        textView17.setText(rec4[1]);
         TextView textView18 = (TextView) contactPopupView.findViewById(R.id.textView48);
+        textView18.setText(rec4[2]);
         TextView textView19 = (TextView) contactPopupView.findViewById(R.id.textView49);
+        textView19.setText(rec4[3]);
         TextView textView20 = (TextView) contactPopupView.findViewById(R.id.textView50);
+        textView20.setText(rec4[4]);
         TextView textView21 = (TextView) contactPopupView.findViewById(R.id.textView51);
+        textView21.setText(rec5[0]);
         TextView textView22 = (TextView) contactPopupView.findViewById(R.id.textView52);
+        textView22.setText(rec5[1]);
         TextView textView23 = (TextView) contactPopupView.findViewById(R.id.textView53);
+        textView23.setText(rec5[2]);
         TextView textView24 = (TextView) contactPopupView.findViewById(R.id.textView54);
+        textView24.setText(rec5[3]);
         TextView textView25 = (TextView) contactPopupView.findViewById(R.id.textView55);
+        textView25.setText(rec5[4]);
         TextView textView26 = (TextView) contactPopupView.findViewById(R.id.textView56);
+        textView26.setText(rec6[0]);
         TextView textView27 = (TextView) contactPopupView.findViewById(R.id.textView57);
+        textView27.setText(rec6[1]);
         TextView textView28 = (TextView) contactPopupView.findViewById(R.id.textView58);
+        textView28.setText(rec6[2]);
         TextView textView29 = (TextView) contactPopupView.findViewById(R.id.textView59);
+        textView29.setText(rec6[3]);
         TextView textView30 = (TextView) contactPopupView.findViewById(R.id.textView60);
-        wordsTextViewEnd.add(textView1);
-        wordsTextViewEnd.add(textView2);
-        wordsTextViewEnd.add(textView3);
-        wordsTextViewEnd.add(textView4);
-        wordsTextViewEnd.add(textView5);
-        wordsTextViewEnd.add(textView6);
-        wordsTextViewEnd.add(textView7);
-        wordsTextViewEnd.add(textView8);
-        wordsTextViewEnd.add(textView9);
-        wordsTextViewEnd.add(textView10);
-        wordsTextViewEnd.add(textView11);
-        wordsTextViewEnd.add(textView12);
-        wordsTextViewEnd.add(textView13);
-        wordsTextViewEnd.add(textView14);
-        wordsTextViewEnd.add(textView15);
-        wordsTextViewEnd.add(textView16);
-        wordsTextViewEnd.add(textView17);
-        wordsTextViewEnd.add(textView18);
-        wordsTextViewEnd.add(textView19);
-        wordsTextViewEnd.add(textView20);
-        wordsTextViewEnd.add(textView21);
-        wordsTextViewEnd.add(textView22);
-        wordsTextViewEnd.add(textView23);
-        wordsTextViewEnd.add(textView24);
-        wordsTextViewEnd.add(textView25);
-        wordsTextViewEnd.add(textView26);
-        wordsTextViewEnd.add(textView27);
-        wordsTextViewEnd.add(textView28);
-        wordsTextViewEnd.add(textView29);
-        wordsTextViewEnd.add(textView30);
-        for(int i = 0; i < 30; i++){
-            wordsTextViewEnd.get(i).setBackground(wordsTextView.get(i).getBackground());
-        }
-        btRestart = (Button) contactPopupView.findViewById(R.id.Restart);
+        textView30.setText(rec6[4]);
+
+        textView1.setBackground(((TextView) findViewById(R.id.textView31)).getBackground());
+        textView2.setBackground(((TextView) findViewById(R.id.textView32)).getBackground());
+        textView3.setBackground(((TextView) findViewById(R.id.textView33)).getBackground());
+        textView4.setBackground(((TextView) findViewById(R.id.textView34)).getBackground());
+        textView5.setBackground(((TextView) findViewById(R.id.textView35)).getBackground());
+        textView6.setBackground(((TextView) findViewById(R.id.textView36)).getBackground());
+        textView7.setBackground(((TextView) findViewById(R.id.textView37)).getBackground());
+        textView8.setBackground(((TextView) findViewById(R.id.textView38)).getBackground());
+        textView9.setBackground(((TextView) findViewById(R.id.textView39)).getBackground());
+        textView10.setBackground(((TextView) findViewById(R.id.textView40)).getBackground());
+        textView11.setBackground(((TextView) findViewById(R.id.textView41)).getBackground());
+        textView12.setBackground(((TextView) findViewById(R.id.textView42)).getBackground());
+        textView13.setBackground(((TextView) findViewById(R.id.textView43)).getBackground());
+        textView14.setBackground(((TextView) findViewById(R.id.textView44)).getBackground());
+        textView15.setBackground(((TextView) findViewById(R.id.textView45)).getBackground());
+        textView16.setBackground(((TextView) findViewById(R.id.textView46)).getBackground());
+        textView17.setBackground(((TextView) findViewById(R.id.textView47)).getBackground());
+        textView18.setBackground(((TextView) findViewById(R.id.textView48)).getBackground());
+        textView19.setBackground(((TextView) findViewById(R.id.textView49)).getBackground());
+        textView20.setBackground(((TextView) findViewById(R.id.textView50)).getBackground());
+        textView21.setBackground(((TextView) findViewById(R.id.textView51)).getBackground());
+        textView22.setBackground(((TextView) findViewById(R.id.textView52)).getBackground());
+        textView23.setBackground(((TextView) findViewById(R.id.textView53)).getBackground());
+        textView24.setBackground(((TextView) findViewById(R.id.textView54)).getBackground());
+        textView25.setBackground(((TextView) findViewById(R.id.textView55)).getBackground());
+        textView26.setBackground(((TextView) findViewById(R.id.textView56)).getBackground());
+        textView27.setBackground(((TextView) findViewById(R.id.textView57)).getBackground());
+        textView28.setBackground(((TextView) findViewById(R.id.textView58)).getBackground());
+        textView29.setBackground(((TextView) findViewById(R.id.textView59)).getBackground());
+        textView30.setBackground(((TextView) findViewById(R.id.textView60)).getBackground());
+
         btRestart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
                 startActivity(getIntent());
+                //dialog.dismiss();
             }
         });
     }
     public AlertDialog.Builder dialogBuilder1;
     public  AlertDialog dialog1;
-    public void help(){
+    public void help(){//prikazuje ekran sa upstvima za igranje igre
+
         dialogBuilder1 = new AlertDialog.Builder(this);
         final View contactPopupView1= getLayoutInflater().inflate(R.layout.help,null);
-        ImageButton imageButtonHelp= contactPopupView1.findViewById(R.id.imageButtonH);
+        ImageButton imageButtonH= (ImageButton) contactPopupView1.findViewById(R.id.imageButtonH);
+        ImageView imageView = (ImageView)contactPopupView1.findViewById(R.id.imageViewH);
         dialogBuilder1.setView(contactPopupView1);
         dialog1 = dialogBuilder1.create();
         dialog1.show();
-        imageButtonHelp.setOnClickListener(new View.OnClickListener() {
+
+        imageButtonH.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View vH) {
                 dialog1.dismiss();
             }
         });
     }
-    public void initialise(){
+
+    public void GenerisiRec(){//bira nasumicnu reci iz recnika koju igrac mora da pogodi
+        int BrReciURecniku = new Random().nextInt(18296) + 1;
+        int brojilac = 1;
+        String filename2 = "dictionary.txt";
         BufferedReader bufferedReader2 = null;
         try {
-            bufferedReader2 = new BufferedReader(new InputStreamReader(this.getAssets().open(dictionaryPath), StandardCharsets.UTF_8));
-            String line = null;
-            int wordIndex = new Random().nextInt(18296) + 1;
-            for(int i = 0; i<wordIndex; i++){
-                line = bufferedReader2.readLine();
-            }
-            solution=line;
-            for(int j = 0; j<5;j++){
-                words[6][j]= line.substring(j,j+1);
+            bufferedReader2 = new BufferedReader(new InputStreamReader
+                    (this.getAssets().open(filename2), StandardCharsets.UTF_8));
+            String line2;
+            while ((line2 = bufferedReader2.readLine()) != null)
+            {
+
+              if(brojilac ==BrReciURecniku)
+              {
+             tvResenje[0]= line2.substring(0,1);
+             tvResenje[1]= line2.substring(1,2);
+             tvResenje[2]= line2.substring(2,3);
+             tvResenje[3]= line2.substring(3,4);
+             tvResenje[4]= line2.substring(4,5);
+              }
+              brojilac++;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        Button button1 = (Button)findViewById(R.id.button1);
-
-        Button button2 = (Button)findViewById(R.id.button2);
-
-        Button button3 = (Button)findViewById(R.id.button3);
-
-        Button button4 = (Button)findViewById(R.id.button4);
-
-        Button button5 = (Button)findViewById(R.id.button5);
-
-        Button button6 = (Button)findViewById(R.id.button6);
-
-        Button button7 = (Button)findViewById(R.id.button7);
-
-        Button button8 = (Button)findViewById(R.id.button8);
-
-        Button button9 = (Button)findViewById(R.id.button9);
-
-        Button button10 = (Button)findViewById(R.id.button10);
-
-        Button button11 = (Button)findViewById(R.id.button11);
-
-        Button button12 = (Button)findViewById(R.id.button12);
-
-        Button button13 = (Button)findViewById(R.id.button13);
-
-        Button button14 = (Button)findViewById(R.id.button14);
-
-        Button button15 = (Button)findViewById(R.id.button15);
-
-        Button button16 = (Button)findViewById(R.id.button16);
-
-        Button button17 = (Button)findViewById(R.id.button17);
-
-        Button button18 = (Button)findViewById(R.id.button18);
-
-        Button button19 = (Button)findViewById(R.id.button19);
-
-        Button button20 = (Button)findViewById(R.id.button20);
-
-        Button button21 = (Button)findViewById(R.id.button21);
-
-        Button button22 = (Button)findViewById(R.id.button22);
-
-        Button button23 = (Button)findViewById(R.id.button23);
-
-        Button button24 = (Button)findViewById(R.id.button24);
-
-        Button button25 = (Button)findViewById(R.id.button25);
-
-        Button button26 = (Button)findViewById(R.id.button26);
-
-        Button button27 = (Button)findViewById(R.id.button27);
-
-        Button button28 = (Button)findViewById(R.id.button28);
-
-        Button button29 = (Button)findViewById(R.id.button29);
-
-        Button button30 = (Button)findViewById(R.id.button30);
-
-        keyboard.add(button1);
-        keyboard.add(button2);
-        keyboard.add(button3);
-        keyboard.add(button4);
-        keyboard.add(button5);
-        keyboard.add(button6);
-        keyboard.add(button7);
-        keyboard.add(button8);
-        keyboard.add(button9);
-        keyboard.add(button10);
-        keyboard.add(button11);
-        keyboard.add(button12);
-        keyboard.add(button13);
-        keyboard.add(button14);
-        keyboard.add(button15);
-        keyboard.add(button16);
-        keyboard.add(button17);
-        keyboard.add(button18);
-        keyboard.add(button19);
-        keyboard.add(button20);
-        keyboard.add(button21);
-        keyboard.add(button22);
-        keyboard.add(button23);
-        keyboard.add(button24);
-        keyboard.add(button25);
-        keyboard.add(button26);
-        keyboard.add(button27);
-        keyboard.add(button28);
-        keyboard.add(button29);
-        keyboard.add(button30);
-
-        for(Button bt: keyboard){
-            bt.setOnClickListener(new View.OnClickListener()
-            {
-                public void onClick(View v30)
-                {
-                    EnterWord(29);
-                    refreshUI();
-                }
-            });
-        }
-
-        TextView tvTable1 = (TextView) findViewById(R.id.textView31);
-        TextView tvTable2 = (TextView) findViewById(R.id.textView32);
-        TextView tvTable3 = (TextView) findViewById(R.id.textView33);
-        TextView tvTable4 = (TextView) findViewById(R.id.textView34);
-        TextView tvTable5 = (TextView) findViewById(R.id.textView35);
-        TextView tvTable6 = (TextView) findViewById(R.id.textView36);
-        TextView tvTable7 = (TextView) findViewById(R.id.textView37);
-        TextView tvTable8 = (TextView) findViewById(R.id.textView38);
-        TextView tvTable9 = (TextView) findViewById(R.id.textView39);
-        TextView tvTable10 = (TextView) findViewById(R.id.textView40);
-        TextView tvTable11 = (TextView) findViewById(R.id.textView41);
-        TextView tvTable12 = (TextView) findViewById(R.id.textView42);
-        TextView tvTable13= (TextView) findViewById(R.id.textView43);
-        TextView tvTable14 = (TextView) findViewById(R.id.textView44);
-        TextView tvTable15 = (TextView) findViewById(R.id.textView45);
-        TextView tvTable16 = (TextView) findViewById(R.id.textView46);
-        TextView tvTable17 = (TextView) findViewById(R.id.textView47);
-        TextView tvTable18 = (TextView) findViewById(R.id.textView48);
-        TextView tvTable19 = (TextView) findViewById(R.id.textView49);
-        TextView tvTable20 = (TextView) findViewById(R.id.textView50);
-        TextView tvTable21 = (TextView) findViewById(R.id.textView51);
-        TextView tvTable22 = (TextView) findViewById(R.id.textView52);
-        TextView tvTable23 = (TextView) findViewById(R.id.textView53);
-        TextView tvTable24 = (TextView) findViewById(R.id.textView54);
-        TextView tvTable25 = (TextView) findViewById(R.id.textView55);
-        TextView tvTable26 = (TextView) findViewById(R.id.textView56);
-        TextView tvTable27 = (TextView) findViewById(R.id.textView57);
-        TextView tvTable28 = (TextView) findViewById(R.id.textView58);
-        TextView tvTable29 = (TextView) findViewById(R.id.textView59);
-        TextView tvTable30 = (TextView) findViewById(R.id.textView60);
-
-        wordsTextView.add(tvTable1);
-        wordsTextView.add(tvTable2);
-        wordsTextView.add(tvTable3);
-        wordsTextView.add(tvTable4);
-        wordsTextView.add(tvTable5);
-        wordsTextView.add(tvTable6);
-        wordsTextView.add(tvTable7);
-        wordsTextView.add(tvTable8);
-        wordsTextView.add(tvTable9);
-        wordsTextView.add(tvTable10);
-        wordsTextView.add(tvTable11);
-        wordsTextView.add(tvTable12);
-        wordsTextView.add(tvTable13);
-        wordsTextView.add(tvTable14);
-        wordsTextView.add(tvTable15);
-        wordsTextView.add(tvTable16);
-        wordsTextView.add(tvTable17);
-        wordsTextView.add(tvTable18);
-        wordsTextView.add(tvTable19);
-        wordsTextView.add(tvTable20);
-        wordsTextView.add(tvTable21);
-        wordsTextView.add(tvTable22);
-        wordsTextView.add(tvTable23);
-        wordsTextView.add(tvTable24);
-        wordsTextView.add(tvTable25);
-        wordsTextView.add(tvTable26);
-        wordsTextView.add(tvTable27);
-        wordsTextView.add(tvTable28);
-        wordsTextView.add(tvTable29);
-        wordsTextView.add(tvTable30);
     }
-    public void refreshUI() {
-        for(int i = 0; i < 5;  i++){
-            for(int j = 0; j < 5;  j++){
-                wordsTextView.get(5*i+j).setText(words[i][j]);
+    public void TEKST() {//refresh-uje UI
+        TextView textView1 = (TextView) findViewById(R.id.textView31);
+        textView1.setText(rec1[0]);
+        TextView textView2 = (TextView) findViewById(R.id.textView32);
+        textView2.setText(rec1[1]);
+        TextView textView3 = (TextView) findViewById(R.id.textView33);
+        textView3.setText(rec1[2]);
+        TextView textView4 = (TextView) findViewById(R.id.textView34);
+        textView4.setText(rec1[3]);
+        TextView textView5 = (TextView) findViewById(R.id.textView35);
+        textView5.setText(rec1[4]);
+        TextView textView6 = (TextView) findViewById(R.id.textView36);
+        textView6.setText(rec2[0]);
+        TextView textView7 = (TextView) findViewById(R.id.textView37);
+        textView7.setText(rec2[1]);
+        TextView textView8 = (TextView) findViewById(R.id.textView38);
+        textView8.setText(rec2[2]);
+        TextView textView9 = (TextView) findViewById(R.id.textView39);
+        textView9.setText(rec2[3]);
+        TextView textView10 = (TextView) findViewById(R.id.textView40);
+        textView10.setText(rec2[4]);
+        TextView textView11 = (TextView) findViewById(R.id.textView41);
+        textView11.setText(rec3[0]);
+        TextView textView12 = (TextView) findViewById(R.id.textView42);
+        textView12.setText(rec3[1]);
+        TextView textView13 = (TextView) findViewById(R.id.textView43);
+        textView13.setText(rec3[2]);
+        TextView textView14 = (TextView) findViewById(R.id.textView44);
+        textView14.setText(rec3[3]);
+        TextView textView15 = (TextView) findViewById(R.id.textView45);
+        textView15.setText(rec3[4]);
+        TextView textView16 = (TextView) findViewById(R.id.textView46);
+        textView16.setText(rec4[0]);
+        TextView textView17 = (TextView) findViewById(R.id.textView47);
+        textView17.setText(rec4[1]);
+        TextView textView18 = (TextView) findViewById(R.id.textView48);
+        textView18.setText(rec4[2]);
+        TextView textView19 = (TextView) findViewById(R.id.textView49);
+        textView19.setText(rec4[3]);
+        TextView textView20 = (TextView) findViewById(R.id.textView50);
+        textView20.setText(rec4[4]);
+        TextView textView21 = (TextView) findViewById(R.id.textView51);
+        textView21.setText(rec5[0]);
+        TextView textView22 = (TextView) findViewById(R.id.textView52);
+        textView22.setText(rec5[1]);
+        TextView textView23 = (TextView) findViewById(R.id.textView53);
+        textView23.setText(rec5[2]);
+        TextView textView24 = (TextView) findViewById(R.id.textView54);
+        textView24.setText(rec5[3]);
+        TextView textView25 = (TextView) findViewById(R.id.textView55);
+        textView25.setText(rec5[4]);
+        TextView textView26 = (TextView) findViewById(R.id.textView56);
+        textView26.setText(rec6[0]);
+        TextView textView27 = (TextView) findViewById(R.id.textView57);
+        textView27.setText(rec6[1]);
+        TextView textView28 = (TextView) findViewById(R.id.textView58);
+        textView28.setText(rec6[2]);
+        TextView textView29 = (TextView) findViewById(R.id.textView59);
+        textView29.setText(rec6[3]);
+        TextView textView30 = (TextView) findViewById(R.id.textView60);
+        textView30.setText(rec6[4]);
+
+    }
+    public void KUCANJE(int AZ){
+        if (brojSlova<5)
+        {
+            if (brojReci==1){
+                rec1[brojSlova] = azbuka[AZ];
+            }else
+            if (brojReci == 2){
+                rec2[brojSlova] = azbuka[AZ];
+            }else
+            if (brojReci==3){
+                rec3[brojSlova] = azbuka[AZ];
+            }else
+            if (brojReci==4){
+                rec4[brojSlova] = azbuka[AZ];
+            }else
+            if (brojReci==5){
+                rec5[brojSlova] = azbuka[AZ];
+            }else
+            if (brojReci==6){
+                rec6[brojSlova] = azbuka[AZ];
             }
-        }
-    }
-    public void EnterWord(int n){
-        if (currentLetter<5){
-            words[currentWord][currentLetter] = azbuka[n];
-            currentLetter++;
+            brojSlova++;
         }
     }
     public static int ZELENO=Color.parseColor("#00FF00");
@@ -720,14 +680,280 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initialise();
+        GenerisiRec();
 
-
-
-
-
-        Button btErase = (Button)findViewById(R.id.button32);
-        btErase.setOnClickListener(new View.OnClickListener()
+        Button button1 = (Button)findViewById(R.id.button1);
+        button1.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v1)
+            {
+                KUCANJE(0);
+                TEKST();
+            }
+        });
+        Button button2 = (Button)findViewById(R.id.button2);
+        button2.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v2)
+            {
+                KUCANJE(1);
+                TEKST();
+            }
+        });
+        Button button3 = (Button)findViewById(R.id.button3);
+        button3.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v3)
+            {
+                KUCANJE(2);
+                TEKST();
+            }
+        });
+        Button button4 = (Button)findViewById(R.id.button4);
+        button4.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v4)
+            {
+                KUCANJE(3);
+                TEKST();
+            }
+        });
+        Button button5 = (Button)findViewById(R.id.button5);
+        button5.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v5)
+            {
+                KUCANJE(4);
+                TEKST();
+            }
+        });
+        Button button6 = (Button)findViewById(R.id.button6);
+        button6.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v6)
+            {
+                KUCANJE(5);
+                TEKST();
+            }
+        });
+        Button button7 = (Button)findViewById(R.id.button7);
+        button7.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v7)
+            {
+                KUCANJE(6);
+                TEKST();
+            }
+        });
+        Button button8 = (Button)findViewById(R.id.button8);
+        button8.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v8)
+            {
+                KUCANJE(7);
+                TEKST();
+            }
+        });
+        Button button9 = (Button)findViewById(R.id.button9);
+        button9.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v9)
+            {
+                KUCANJE(8);
+                TEKST();
+            }
+        });
+        Button button10 = (Button)findViewById(R.id.button10);
+        button10.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v10)
+            {
+                KUCANJE(9);
+                TEKST();
+            }
+        });
+        Button button11 = (Button)findViewById(R.id.button11);
+        button11.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v11)
+            {
+                KUCANJE(10);
+                TEKST();
+            }
+        });
+        Button button12 = (Button)findViewById(R.id.button12);
+        button12.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v12)
+            {
+                KUCANJE(11);
+                TEKST();
+            }
+        });
+        Button button13 = (Button)findViewById(R.id.button13);
+        button13.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v13)
+            {
+                KUCANJE(12);
+                TEKST();
+            }
+        });
+        Button button14 = (Button)findViewById(R.id.button14);
+        button14.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v14)
+            {
+                KUCANJE(13);
+                TEKST();
+            }
+        });
+        Button button15 = (Button)findViewById(R.id.button15);
+        button15.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v15)
+            {
+                KUCANJE(14);
+                TEKST();
+            }
+        });
+        Button button16 = (Button)findViewById(R.id.button16);
+        button16.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v16)
+            {
+                KUCANJE(15);
+                TEKST();
+            }
+        });
+        Button button17 = (Button)findViewById(R.id.button17);
+        button17.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v17)
+            {
+                KUCANJE(16);
+                TEKST();
+            }
+        });
+        Button button18 = (Button)findViewById(R.id.button18);
+        button18.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v18)
+            {
+                KUCANJE(17);
+                TEKST();
+            }
+        });
+        Button button19 = (Button)findViewById(R.id.button19);
+        button19.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v19)
+            {
+                KUCANJE(18);
+                TEKST();
+            }
+        });
+        Button button20 = (Button)findViewById(R.id.button20);
+        button20.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v20)
+            {
+                KUCANJE(19);
+                TEKST();
+            }
+        });
+        Button button21 = (Button)findViewById(R.id.button21);
+        button21.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v21)
+            {
+                KUCANJE(20);
+                TEKST();
+            }
+        });
+        Button button22 = (Button)findViewById(R.id.button22);
+        button22.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v22)
+            {
+                KUCANJE(21);
+                TEKST();
+            }
+        });
+        Button button23 = (Button)findViewById(R.id.button23);
+        button23.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v23)
+            {
+                KUCANJE(22);
+                TEKST();
+            }
+        });
+        Button button24 = (Button)findViewById(R.id.button24);
+        button24.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v24)
+            {
+                KUCANJE(23);
+                TEKST();
+            }
+        });
+        Button button25 = (Button)findViewById(R.id.button25);
+        button25.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v25)
+            {
+                KUCANJE(24);
+                TEKST();
+            }
+        });
+        Button button26 = (Button)findViewById(R.id.button26);
+        button26.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v26)
+            {
+                KUCANJE(25);
+                TEKST();
+            }
+        });
+        Button button27 = (Button)findViewById(R.id.button27);
+        button27.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v27)
+            {
+                KUCANJE(26);
+                TEKST();
+            }
+        });
+        Button button28 = (Button)findViewById(R.id.button28);
+        button28.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v28)
+            {
+                KUCANJE(27);
+                TEKST();
+            }
+        });
+        Button button29 = (Button)findViewById(R.id.button29);
+        button29.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v29)
+            {
+                KUCANJE(28);
+                TEKST();
+            }
+        });
+        Button button30 = (Button)findViewById(R.id.button30);
+        button30.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v30)
+            {
+                KUCANJE(29);
+                TEKST();
+            }
+        });
+        Button button32 = (Button)findViewById(R.id.button32);
+        button32.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v32)
             {
@@ -760,8 +986,8 @@ public class MainActivity extends AppCompatActivity
 
 
 
-        ImageButton btHelp = (ImageButton)findViewById(R.id.button33);
-        btHelp.setOnClickListener(new View.OnClickListener()
+        ImageButton button33 = (ImageButton)findViewById(R.id.button33);
+        button33.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v33)
             {
@@ -769,8 +995,8 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        Button btEnter = (Button)findViewById(R.id.button31);
-        btEnter.setOnClickListener(new View.OnClickListener()
+        Button button31 = (Button)findViewById(R.id.button31);
+        button31.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v31)
             {
