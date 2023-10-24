@@ -1,2 +1,2 @@
 # Wordle-SR
-Wordle na srpskom za android
+Veoma prosta android verzija igre Wordle na sprskom jeziku.
